@@ -14,6 +14,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.DirectionsRun
 import androidx.compose.material.icons.filled.FitnessCenter
@@ -41,6 +42,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.tracklab400.app.R
+import com.tracklab400.app.data.exercises.CoolDownCatalog
 import com.tracklab400.app.data.exercises.ExerciseEntry
 import com.tracklab400.app.data.exercises.ExerciseLibrary
 import com.tracklab400.app.data.model.ExerciseType
@@ -71,6 +73,8 @@ fun WorkoutDetailScreen(
     onBack: () -> Unit,
     modifier: Modifier = Modifier,
     onOpenCompletion: () -> Unit = {},
+    onOpenExercise: (Int) -> Unit = {},
+    onOpenLibraryExercise: (String) -> Unit = {},
 ) {
     var showSkipDialog by rememberSaveable { mutableStateOf(false) }
     val exerciseLibrary = rememberExerciseLibrary()
@@ -144,8 +148,14 @@ fun WorkoutDetailScreen(
             val warmUp = session.exercises.mapIndexedNotNull { index, exercise ->
                 if (exercise.type == ExerciseType.WARMUP) index to exercise else null
             }
-            val main = session.exercises.mapIndexedNotNull { index, exercise ->
-                if (exercise.type != ExerciseType.WARMUP) index to exercise else null
+            val run = session.exercises.mapIndexedNotNull { index, exercise ->
+                if (exercise.type == ExerciseType.RUN) index to exercise else null
+            }
+            val strength = session.exercises.mapIndexedNotNull { index, exercise ->
+                if (exercise.type == ExerciseType.STRENGTH) index to exercise else null
+            }
+            val notes = session.exercises.mapIndexedNotNull { index, exercise ->
+                if (exercise.type == ExerciseType.NOTE) index to exercise else null
             }
 
             if (warmUp.isNotEmpty()) {
@@ -157,6 +167,7 @@ fun WorkoutDetailScreen(
                         exercise = exercise,
                         index = position + 1,
                         library = exerciseLibrary,
+                        onClick = { onOpenExercise(index) },
                         onOpenStopwatch = if (exercise.distanceM != null) {
                             { onOpenStopwatch(index) }
                         } else {
@@ -167,20 +178,75 @@ fun WorkoutDetailScreen(
                 }
             }
 
-            if (main.isNotEmpty()) {
+            if (run.isNotEmpty()) {
                 Spacer(Modifier.height(TrackLabSpacing.md))
                 TrackLabSectionHeader(title = stringResource(R.string.section_workout))
                 Spacer(Modifier.height(TrackLabSpacing.sm))
-                main.forEach { (index, exercise) ->
+                run.forEachIndexed { position, (index, exercise) ->
+                    ExerciseCard(
+                        exercise = exercise,
+                        index = position + 1,
+                        library = exerciseLibrary,
+                        onClick = { onOpenExercise(index) },
+                        onOpenStopwatch = { onOpenStopwatch(index) },
+                    )
+                    Spacer(Modifier.height(TrackLabSpacing.sm))
+                }
+                notes.forEach { (index, exercise) ->
                     ExerciseCard(
                         exercise = exercise,
                         library = exerciseLibrary,
-                        onOpenStopwatch = if (exercise.distanceM != null) {
-                            { onOpenStopwatch(index) }
-                        } else {
-                            null
-                        },
+                        onClick = { onOpenExercise(index) },
                     )
+                    Spacer(Modifier.height(TrackLabSpacing.sm))
+                }
+            }
+
+            if (strength.isNotEmpty()) {
+                Spacer(Modifier.height(TrackLabSpacing.md))
+                TrackLabSectionHeader(title = stringResource(R.string.section_strength))
+                Spacer(Modifier.height(TrackLabSpacing.sm))
+                strength.forEachIndexed { position, (index, exercise) ->
+                    ExerciseCard(
+                        exercise = exercise,
+                        index = position + 1,
+                        library = exerciseLibrary,
+                        onClick = { onOpenExercise(index) },
+                    )
+                    Spacer(Modifier.height(TrackLabSpacing.sm))
+                }
+            }
+
+            val cooldown = CoolDownCatalog.all
+            if (cooldown.isNotEmpty()) {
+                Spacer(Modifier.height(TrackLabSpacing.md))
+                TrackLabSectionHeader(title = stringResource(R.string.section_cooldown))
+                Spacer(Modifier.height(TrackLabSpacing.sm))
+                cooldown.forEach { exercise ->
+                    TrackLabCard(onClick = { onOpenLibraryExercise(exercise.id) }) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Column(Modifier.weight(1f)) {
+                                Text(
+                                    text = exercise.name,
+                                    style = MaterialTheme.typography.titleSmall,
+                                    fontWeight = FontWeight.SemiBold,
+                                )
+                                Text(
+                                    text = stringResource(
+                                        R.string.exercise_duration_format,
+                                        exercise.durationSeconds,
+                                    ),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.primary,
+                                )
+                            }
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                                contentDescription = null,
+                                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            )
+                        }
+                    }
                     Spacer(Modifier.height(TrackLabSpacing.sm))
                 }
             }
@@ -240,10 +306,11 @@ fun WorkoutDetailScreen(
 private fun ExerciseCard(
     exercise: WorkoutExercise,
     index: Int? = null,
+    onClick: (() -> Unit)? = null,
     onOpenStopwatch: (() -> Unit)? = null,
     library: ExerciseLibrary? = null,
 ) {
-    TrackLabCard {
+    TrackLabCard(onClick = onClick) {
         Column {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Surface(
@@ -302,6 +369,12 @@ private fun ExerciseCard(
                         contentColor = MaterialTheme.trackLabColors.onSuccess,
                     )
                 }
+                Icon(
+                    imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                    contentDescription = null,
+                    modifier = Modifier.padding(start = TrackLabSpacing.xs),
+                    tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
             }
             val matches = library?.find(exercise.name).orEmpty()
             if (matches.isNotEmpty()) {

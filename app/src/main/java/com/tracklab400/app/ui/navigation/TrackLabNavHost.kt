@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -18,7 +17,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.tracklab400.app.R
-import com.tracklab400.app.ui.screens.PlaceholderScreen
 import com.tracklab400.app.ui.screens.completion.CompletionScreen
 import com.tracklab400.app.ui.screens.completion.CompletionViewModel
 import com.tracklab400.app.ui.screens.history.HistoryScreen
@@ -35,6 +33,9 @@ import com.tracklab400.app.ui.screens.profile.ProfileFormScreen
 import com.tracklab400.app.ui.screens.profile.ProfileViewModel
 import com.tracklab400.app.ui.screens.progress.ProgressScreen
 import com.tracklab400.app.ui.screens.progress.ProgressViewModel
+import com.tracklab400.app.ui.screens.exercises.ExerciseDetailScreen
+import com.tracklab400.app.ui.screens.exercises.ExerciseDetailViewModel
+import com.tracklab400.app.ui.screens.exercises.ExerciseLibraryScreen
 import com.tracklab400.app.ui.screens.rest.RestScreen
 import com.tracklab400.app.ui.screens.rest.RestViewModel
 import com.tracklab400.app.ui.screens.settings.AppearanceScreen
@@ -170,6 +171,14 @@ fun TrackLabNavHost(
                 onOpenCompletion = {
                     navController.navigate(TrackLabRoutes.completion(weekNumber, dayIndex))
                 },
+                onOpenExercise = { blockIndex ->
+                    navController.navigate(
+                        TrackLabRoutes.sessionExercise(weekNumber, dayIndex, blockIndex),
+                    )
+                },
+                onOpenLibraryExercise = { id ->
+                    navController.navigate(TrackLabRoutes.exercise(id))
+                },
                 onBack = { navController.popBackStack() },
             )
         }
@@ -301,7 +310,65 @@ fun TrackLabNavHost(
             )
         }
         composable(TrackLabRoutes.STRENGTH) {
-            PlaceholderScreen(title = stringResource(R.string.nav_strength))
+            ExerciseLibraryScreen(
+                onOpenExercise = { id ->
+                    navController.navigate(TrackLabRoutes.exercise(id))
+                },
+            )
+        }
+        composable(
+            route = TrackLabRoutes.EXERCISE,
+            arguments = listOf(
+                navArgument("exerciseId") { type = NavType.StringType },
+            ),
+        ) { backStackEntry ->
+            val exerciseId = backStackEntry.arguments?.getString("exerciseId").orEmpty()
+            val viewModel: ExerciseDetailViewModel = viewModel(
+                factory = viewModelFactory {
+                    initializer {
+                        val app = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]
+                            as Application
+                        ExerciseDetailViewModel(app, exerciseId = exerciseId)
+                    }
+                },
+            )
+            val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+            ExerciseDetailScreen(
+                uiState = uiState,
+                onOpenStopwatch = null,
+                onBack = { navController.popBackStack() },
+            )
+        }
+        composable(
+            route = TrackLabRoutes.SESSION_EXERCISE,
+            arguments = listOf(
+                navArgument("weekNumber") { type = NavType.IntType },
+                navArgument("dayIndex") { type = NavType.IntType },
+                navArgument("blockIndex") { type = NavType.IntType },
+            ),
+        ) { backStackEntry ->
+            val weekNumber = backStackEntry.arguments?.getInt("weekNumber") ?: 1
+            val dayIndex = backStackEntry.arguments?.getInt("dayIndex") ?: 1
+            val blockIndex = backStackEntry.arguments?.getInt("blockIndex") ?: 0
+            val exerciseViewModel: ExerciseDetailViewModel = viewModel(
+                factory = viewModelFactory {
+                    initializer {
+                        val app = this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY]
+                            as Application
+                        ExerciseDetailViewModel(app, weekNumber, dayIndex, blockIndex)
+                    }
+                },
+            )
+            val exerciseUiState by exerciseViewModel.uiState.collectAsStateWithLifecycle()
+            ExerciseDetailScreen(
+                uiState = exerciseUiState,
+                onOpenStopwatch = {
+                    navController.navigate(
+                        TrackLabRoutes.stopwatch(weekNumber, dayIndex, blockIndex),
+                    )
+                },
+                onBack = { navController.popBackStack() },
+            )
         }
         composable(TrackLabRoutes.SETTINGS) {
             SettingsScreen(

@@ -33,6 +33,7 @@ object TrackLabRoutes {
     const val TEST = "test/new"
     const val RACE = "race/{weekId}"
     const val EXERCISE = "exercise/{exerciseId}"
+    const val SESSION_EXERCISE = "workout/exercise/{weekNumber}/{dayIndex}/{blockIndex}"
 
     fun workout(weekNumber: Int, dayIndex: Int) = "workout/$weekNumber/$dayIndex"
     fun stopwatch(weekNumber: Int, dayIndex: Int, blockIndex: Int) =
@@ -42,7 +43,9 @@ object TrackLabRoutes {
     fun completion(weekNumber: Int, dayIndex: Int) = "completion/$weekNumber/$dayIndex"
     fun log(date: String) = "log/$date"
     fun race(weekId: Long) = "race/$weekId"
-    fun exercise(exerciseId: Long) = "exercise/$exerciseId"
+    fun exercise(exerciseId: String) = "exercise/$exerciseId"
+    fun sessionExercise(weekNumber: Int, dayIndex: Int, blockIndex: Int) =
+        "workout/exercise/$weekNumber/$dayIndex/$blockIndex"
 }
 
 data class TrackLabBottomItem(
