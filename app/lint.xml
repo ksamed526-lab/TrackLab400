@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- <adaptive-icon> yalnızca API 26+ içindir; minSdk 26 olsa da AAPT bu kaynağın
+     mipmap-anydpi-v26 klasöründe olmasını zorunlu kılar. Bu nedenle bu dosyalardaki
+     ObsoleteSdkInt uyarısı bilinçli olarak kapatılır.
+
+     Bağımlılık ve SDK sürümleri bilinçli olarak sabitlenmiştir (doğrulanmış/test
+     edilmiş kombinasyon); sürüm yükseltme ayrıca değerlendirilir. Bu nedenle
+     GradleDependency ve OldTargetApi bildirimleri kapatılır. -->
+<lint>
+    <issue id="ObsoleteSdkInt">
+        <ignore path="res/mipmap-anydpi-v26" />
+    </issue>
+    <issue id="GradleDependency" severity="ignore" />
+    <issue id="OldTargetApi" severity="ignore" />
+</lint>

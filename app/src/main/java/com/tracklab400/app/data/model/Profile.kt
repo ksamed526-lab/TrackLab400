@@ -1,0 +1,25 @@
+package com.tracklab400.app.data.model
+
+data class Profile(
+    val id: Long = 1L,
+    val nickname: String?,
+    val age: Int?,
+    val current100mMs: Long?,
+    val current200mMs: Long?,
+    val current300mMs: Long?,
+    val current400mMs: Long,
+    val targetDistanceM: Int,
+    val targetTimeMs: Long,
+    val prepWeeks: Int,
+    val trainingDaysPerWeek: Int,
+    val startDateMillis: Long,
+    val trackAccess: TrackAccess,
+    val gymStatus: GymStatus,
+    val equipment: Set<Equipment>,
+    val experience: TrainingExperience,
+    val injuryInfo: String?,
+    val stopwatchType: StopwatchType,
+    val isDemo: Boolean,
+    val createdAt: Long,
+    val updatedAt: Long,
+)
