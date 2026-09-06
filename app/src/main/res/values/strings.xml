@@ -328,6 +328,13 @@
     <string name="settings_update">Güncelle</string>
     <string name="settings_update_desc">Yeni sürüm kontrol et</string>
     <string name="settings_update_title">Uygulama Güncelle</string>
-    <string name="settings_update_message">En son sürümü kullanıyorsunuz (Sürüm %1$s). Yeni bir sürüm çıktığında buradan güncelleyebilirsiniz.</string>
+    <string name="settings_update_message">En son sürümü kullanıyorsunuz (Sürüm %1$s).</string>
+    <string name="settings_update_checking">Güncelleme kontrol ediliyor...</string>
+    <string name="settings_update_available_message">Yeni sürüm (%1$s) yayınlandı. İndirip kurmak ister misiniz?</string>
+    <string name="settings_update_downloading">Güncelleme indiriliyor...</string>
+    <string name="settings_update_failed">Güncelleme kontrol edilemedi. İnternet bağlantınızı kontrol edin.</string>
+    <string name="settings_download_failed">İndirme başarısız oldu. Lütfen tekrar deneyin.</string>
     <string name="action_ok">Tamam</string>
+    <string name="action_download">İndir</string>
+    <string name="action_later">Sonra</string>
 </resources>
