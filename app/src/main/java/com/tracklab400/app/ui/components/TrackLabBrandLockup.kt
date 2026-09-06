@@ -34,7 +34,7 @@ fun TrackLabBrandLockup(modifier: Modifier = Modifier) {
         }
         Spacer(Modifier.width(TrackLabSpacing.sm))
         Text(
-            text = "TrackLab",
+            text = "SprintLab",
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onBackground,

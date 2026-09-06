@@ -73,6 +73,7 @@ fun SettingsScreen(
     var updateState by remember {
         mutableStateOf<UpdateDialogState>(UpdateDialogState.Idle)
     }
+    var aboutDialog by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
     val startDownload: (UpdateInfo) -> Unit = { info ->
         updateState = UpdateDialogState.Downloading(info)
@@ -151,6 +152,7 @@ fun SettingsScreen(
                 icon = Icons.Default.Info,
                 title = stringResource(R.string.settings_about),
                 description = stringResource(R.string.settings_about_desc),
+                onClick = { aboutDialog = true },
             )
             Spacer(Modifier.width(TrackLabSpacing.sm))
             TrackLabSettingsItem(
@@ -298,6 +300,25 @@ fun SettingsScreen(
                 },
             )
         }
+    }
+
+    if (aboutDialog) {
+        AlertDialog(
+            onDismissRequest = { aboutDialog = false },
+            icon = {
+                Icon(
+                    imageVector = Icons.Default.Info,
+                    contentDescription = null,
+                )
+            },
+            title = { Text(stringResource(R.string.settings_about_title, versionName)) },
+            text = { Text(stringResource(R.string.settings_about_attribution)) },
+            confirmButton = {
+                TextButton(onClick = { aboutDialog = false }) {
+                    Text(stringResource(R.string.action_ok))
+                }
+            },
+        )
     }
 }
 

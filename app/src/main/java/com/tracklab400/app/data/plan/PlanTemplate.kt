@@ -63,7 +63,7 @@ private val P_200_W6 = PaceFactor(0.500, 0.515)
 private val KUVVET_A = listOf(
     BlockTemplate(
         ExerciseType.STRENGTH, "Squat / Trap-bar deadlift",
-        intensity = "3×5 · RPE 7–8",
+        intensity = "3×5 · Zorluk 7–8",
         cues = "Dizler ayak yönünü takip etsin; son tekrar zor ama temiz kalsın.",
     ),
     BlockTemplate(
@@ -307,17 +307,17 @@ object PlanTemplate {
         WeekTemplate(
             weekNumber = 4,
             block = PlanBlock.YUKLENME,
-            focus = "Deload · test",
+            focus = "Yük azaltma · test",
             isDeload = true,
             hasCheckpoint = true,
             sessions = listOf(
                 pazartesi(
-                    "Deload: hacim azaltılmış, kalite yüksek.",
+                    "Yük azaltma: hacim azaltılmış, kalite yüksek.",
                     listOf(
                         BlockTemplate(ExerciseType.RUN, "4×30 m", distanceM = 30, reps = 4, restMinMs = 180_000L, restMaxMs = 240_000L),
                         BlockTemplate(ExerciseType.RUN, "3×40 m", distanceM = 40, reps = 3, restMinMs = 180_000L, restMaxMs = 240_000L),
                     ),
-                    "Deload: setleri yaklaşık %25 azalt.",
+                    "Yük azaltma: setleri yaklaşık %25 azalt.",
                 ),
                 sali(
                     listOf(
@@ -337,7 +337,7 @@ object PlanTemplate {
                     listOf(
                         BlockTemplate(ExerciseType.RUN, "4× uçan 20 m", distanceM = 20, reps = 4, isFlying = true, restMinMs = 180_000L, restMaxMs = 300_000L),
                     ),
-                    "Deload: setleri yaklaşık %25 azalt.",
+                    "Yük azaltma: setleri yaklaşık %25 azalt.",
                 ),
                 REST_PAZAR,
             ),
@@ -453,11 +453,11 @@ object PlanTemplate {
         WeekTemplate(
             weekNumber = 8,
             block = PlanBlock.OZELLESME,
-            focus = "Taper · yarış",
+            focus = "Tazeleme · yarış",
             isRaceWeek = true,
             sessions = listOf(
                 pazartesi(
-                    "Taper: hacim en düşük, her şey taze.",
+                    "Tazeleme: hacim en düşük, her şey taze.",
                     listOf(
                         BlockTemplate(ExerciseType.RUN, "4×20 m", distanceM = 20, reps = 4),
                         BlockTemplate(ExerciseType.RUN, "2×40 m", distanceM = 40, reps = 2),
@@ -486,7 +486,7 @@ object PlanTemplate {
                         BlockTemplate(
                             ExerciseType.NOTE,
                             "Aktivasyon",
-                            cues = "Dinamik ısınma + 2×60 m stride (hafif).",
+                            cues = "Dinamik ısınma + 2×60 m rahat artış (hafif).",
                         ),
                         BlockTemplate(
                             ExerciseType.RUN,

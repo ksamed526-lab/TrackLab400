@@ -289,7 +289,7 @@ private fun historyStatsLine(record: SessionRecord): String {
     if (avg != null) parts.add("ort ${TimeUtils.formatSeconds(avg)} sn")
     if (best != null) parts.add("en iyi ${TimeUtils.formatSeconds(best)} sn")
     record.avgDeviationMs?.let { parts.add("sapma ${deviationText(it)}") }
-    if (record.rpe != null) parts.add("RPE ${record.rpe}")
+    if (record.rpe != null) parts.add("Zorluk ${record.rpe}")
     return if (parts.isEmpty()) "-" else parts.joinToString(" · ")
 }
 

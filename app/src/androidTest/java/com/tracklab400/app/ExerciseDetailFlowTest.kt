@@ -88,7 +88,7 @@ class ExerciseDetailFlowTest {
         private const val FIRST_STRENGTH_EXERCISE = "Trap Bar Deadlift"
         private const val DETAIL_START_POSE = "Başlangıç"
         private const val DETAIL_END_POSE = "Bitiş"
-        private const val DETAIL_RPE_TARGET = "Hedef RPE"
+        private const val DETAIL_RPE_TARGET = "Hedef Zorluk"
         private const val ACTION_START = "Antrenmana Başla"
         private const val SECTION_WARMUP = "Isınma"
         private const val SECTION_WORKOUT = "Ana Çalışma"

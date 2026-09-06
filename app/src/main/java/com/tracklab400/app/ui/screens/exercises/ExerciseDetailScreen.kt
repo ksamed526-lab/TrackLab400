@@ -446,7 +446,7 @@ private fun StrengthContent(
             min = 1f,
             max = 10f,
             steps = 8,
-            label = { "RPE ${it.toInt()}" },
+            label = { "Zorluk ${it.toInt()}" },
             modifier = Modifier.padding(vertical = TrackLabSpacing.xs),
         )
 

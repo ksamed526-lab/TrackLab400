@@ -2,7 +2,7 @@
 <!-- Türkçede sayılardan sonra isimler çekimsiz kalır ("5 seans", "1 seans"); PluralsCandidate
      bu kuralı bilmez. Kural-dışı uyarı bilinçli olarak kapatılır. -->
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="PluralsCandidate">
-    <string name="app_name">TrackLab 400</string>
+    <string name="app_name">SprintLab</string>
 
     <string name="nav_home">Ana Sayfa</string>
     <string name="nav_plan">Plan</string>
@@ -19,11 +19,13 @@
     <string name="settings_appearance">Görünüm</string>
     <string name="settings_appearance_desc">Açık ve koyu tema</string>
     <string name="settings_about">Uygulama hakkında</string>
-    <string name="settings_about_desc">TrackLab 400 sürüm bilgisi</string>
+    <string name="settings_about_desc">SprintLab sürüm bilgisi ve katkılar</string>
+    <string name="settings_about_title">SprintLab %1$s</string>
+    <string name="settings_about_attribution">Hareket görselleri: workout-guide koleksiyonu (Everkinetic / bryllim, CC BY-SA 4.0). Kod MIT lisansıyla dağıtılır.</string>
 
     <string name="home_greeting">Merhaba, %1$s</string>
     <string name="home_greeting_default">Merhaba, koşucu</string>
-    <string name="home_hero_brand">TRACKLAB</string>
+    <string name="home_hero_brand">SPRINTLAB</string>
     <string name="home_hero_title">400 m Performans</string>
     <string name="home_current_target_label">MEVCUT → HEDEF</string>
     <string name="home_week_format">Hafta %1$d / %2$d</string>
@@ -52,7 +54,7 @@
     <string name="plan_week_progress">%1$d/%2$d seans tamamlandı</string>
     <string name="block_yuklenme">Yüklenme</string>
     <string name="block_ozellesme">Özelleşme</string>
-    <string name="tag_deload">Deload</string>
+    <string name="tag_deload">Yük Azaltma</string>
     <string name="tag_race_week">Yarış Haftası</string>
     <string name="tag_rest">Dinlenme</string>
     <string name="tag_test">Test</string>
@@ -238,7 +240,7 @@
     <string name="comp_notes_label">Not ekle (örn. nasıl hissettin)</string>
     <string name="comp_rep_item">%1$d. tekrar</string>
     <string name="comp_correct_hint">Saniye (örn. 58,5)</string>
-    <string name="comp_rpe_title">RPE (1–10)</string>
+    <string name="comp_rpe_title">Zorluk (1–10)</string>
     <string name="comp_rpe_label">%1$d</string>
     <string name="comp_sleep_title">Uyku (saat)</string>
     <string name="comp_sleep_label">%.1f saat</string>
@@ -293,8 +295,8 @@
     <string name="progress_weekly_subtitle">Hafta başına gerçekleşen seans sayısı</string>
     <string name="progress_weekly_empty">Bu aralıkta tamamlanmış hafta yok.</string>
     <string name="progress_week_short">H%1$d</string>
-    <string name="progress_rpe_title">Ortalama RPE</string>
-    <string name="progress_rpe_empty">Henüz RPE kaydı yok.</string>
+    <string name="progress_rpe_title">Ortalama Zorluk</string>
+    <string name="progress_rpe_empty">Henüz zorluk kaydı yok.</string>
     <string name="progress_rpe_sessions">%1$d oturumun ortalaması</string>
     <string name="progress_sleep_title">Uyku ve Performans</string>
     <string name="progress_sleep_subtitle">Uyku dilimine göre ortalama tekrar süresi</string>
@@ -341,10 +343,10 @@
     <string name="exercise_notes">Notlar</string>
     <string name="exercise_start_stopwatch">Kronometreyi Başlat</string>
     <string name="exercise_per_rep_note">Her tekrarı kronometrede ayrı ayrı kaydet; seans bitince Antrenmanı Kaydet ekranından verileri girersin.</string>
-    <string name="exercise_rpe_after_note">Seans sonunda RPE ve bacak hissini Antrenmanı Kaydet ekranından girersin.</string>
+    <string name="exercise_rpe_after_note">Seans sonunda zorluk ve bacak hissini Antrenmanı Kaydet ekranından girersin.</string>
     <string name="exercise_plan_header">Hareket</string>
     <string name="exercise_sets_reps">%1$d × %2$d · %3$d sn dinlenme</string>
-    <string name="exercise_rpe_target">Hedef RPE</string>
+    <string name="exercise_rpe_target">Hedef Zorluk</string>
     <string name="exercise_weight">Kullanılan Ağırlık</string>
     <string name="exercise_weight_label">Ağırlık (kg)</string>
     <string name="exercise_completed_sets">Tamamlanan Set</string>
